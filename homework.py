@@ -1,7 +1,12 @@
 import dataclasses
+from typing import ClassVar
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(
+    init=True,
+    repr=False,
+    eq=False,
+    match_args=False)
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     training_type: str
@@ -10,12 +15,12 @@ class InfoMessage:
     speed: float
     calories: float
 
-    MESSAGE: str = ('Тип тренировки: {training_type}; '
-                    'Длительность: {duration:.3f} ч.; '
-                    'Дистанция: {distance:.3f} км; '
-                    'Ср. скорость: {speed:.3f} км/ч; '
-                    'Потрачено ккал: {calories:.3f}.'
-                    )
+    MESSAGE: ClassVar[str] = ('Тип тренировки: {training_type}; '
+                              'Длительность: {duration:.3f} ч.; '
+                              'Дистанция: {distance:.3f} км; '
+                              'Ср. скорость: {speed:.3f} км/ч; '
+                              'Потрачено ккал: {calories:.3f}.'
+                              )
 
     def get_message(self) -> str:
         """Получить информационное сообщение о тренировке"""
@@ -48,7 +53,7 @@ class Training:
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         raise NotImplementedError(
-            'Определите get_spent_calories в %s' % (type(self).__name__)
+            f'Определите get_spent_calories в {type(self).__name__}'
         )
 
     def show_training_info(self) -> InfoMessage:
