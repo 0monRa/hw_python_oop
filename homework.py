@@ -3,10 +3,9 @@ from typing import ClassVar
 
 
 @dataclasses.dataclass(
-    init=True,
     repr=False,
     eq=False,
-    match_args=False)
+)
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     training_type: str
